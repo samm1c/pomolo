@@ -1,5 +1,25 @@
 body {
     font-family: "Pangolin";
+    margin: 0;
+}
+
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    background-color: lightgoldenrodyellow;
+    min-height: 100vh;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: lightgray;
+    /* margin-top: 100vh; */
 }
 
 /* main elements in App.jsx */
@@ -21,22 +41,24 @@ body {
 }
 
 .logo {
-    font-size: 3em;
-    font-weight: bold;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin-top: 10px;
 }
 
 /* subcomponents of Timer.jsx */
 .timer {
-    width: 600px;
-    height: 350px;
+    width: 650px;
+    height: 400px;
     background-color: lightgray;
     border-radius: 20px;
-    margin: 0 auto; /* center horizontally*/
+    margin: 0 auto; /* center horizontally */
     margin-top: 20px;
 }
 
 .time {
-    font-size: 5em;
+    font-size: 7em;
     font-weight: bold;
     text-align: center;
     padding-top: 10%;
@@ -58,6 +80,7 @@ button {
     font-size: 1.5rem;
     text-align: center;
     font-family: "Pangolin";
+    cursor: pointer;
 }
 
 .mode-buttons-container {

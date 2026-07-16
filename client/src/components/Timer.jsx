@@ -32,6 +32,9 @@ function Timer({ initialSeconds = 1500, shortSeconds = 300, longSeconds = 900 })
     }, [isActive]);
 
     useEffect(() => {
+        // every time seconds changes, update tab title
+        document.title = `${formatTime(seconds)} - Pomolo`;
+
         // checking if timer has run out yet
         if (seconds === 0) {
             // increment counters
@@ -91,6 +94,7 @@ function Timer({ initialSeconds = 1500, shortSeconds = 300, longSeconds = 900 })
 
     // skip button
     const handleSkip = () => {
+        setIsActive(false);
         if (mode === "short" || mode === "long" || shortSeconds === 0 || longSeconds === 0) {
             setMode("work");
             setSeconds(initialSeconds);
