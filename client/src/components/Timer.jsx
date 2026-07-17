@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react'
 import skipIcon from '../assets/skip.webp'
 
 // function Timer({ initialSeconds = 1, shortSeconds = 2, longSeconds = 3 }) { // default is 25 mins = 1500 sec
-function Timer({ numPomos, onSessionComplete, initialSeconds = 1, shortSeconds = 2, longSeconds = 3 }) { // default is 25 mins = 1500 sec
+function Timer({ sessions, onSessionComplete, initialSeconds = 1, shortSeconds = 2, longSeconds = 3 }) { // 1500, 300, 900
     // initialize state
     const [seconds, setSeconds] = useState(initialSeconds);
     const [isActive, setIsActive] = useState(false);
     const [mode, setMode] = useState("pomo");
+    
+    const numPomos = sessions.filter(session => session.type === "pomo").length;
 
     useEffect(() => {
         if (!isActive) return;

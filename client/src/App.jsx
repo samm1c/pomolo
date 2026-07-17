@@ -18,11 +18,6 @@ function App() {
     setSessions(prev => [...prev, newSession]); // append to list
   };
 
-  // counter functions
-  const numPomos = sessions.filter(session => session.type === "pomo").length;
-  const numShort = sessions.filter(session => session.type === "short").length;
-  const numLong = sessions.filter(session => session.type === "long").length;
-
   return (
     <div className='app'>
       <main>
@@ -41,15 +36,13 @@ function App() {
         </div>
 
         <Timer 
-          numPommos={numPomos}
+          sessions={sessions}
           onSessionComplete={addSession}
         />
 
         {showStats && (<Stats 
           onClose={() => setShowStats(false)}
-          numPomos={numPomos}
-          numShort={numShort}
-          numLong={numLong}
+          sessions={sessions}
         />)}
 
 

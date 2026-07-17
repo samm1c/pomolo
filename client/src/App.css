@@ -118,7 +118,7 @@ button {
     background: white;
     padding: 30px;
     border-radius: 10px;
-    width: 500px;
+    width: 600px;
     height: 800px;
 }
 
@@ -126,6 +126,7 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 15px;
 }
 
 .x-button {
@@ -135,4 +136,22 @@ button {
 
 h2 {
     margin: 0;
+}
+
+.stat-box { 
+    background: lightgray;
+    width: 130px;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: right;
+}
+
+.stat-num {
+    font-size: 40px;
+}
+
+.stat-container {
+    display: flex;
+    justify-content: row;
+    gap: 50px;
 }
