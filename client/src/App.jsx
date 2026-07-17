@@ -6,12 +6,22 @@ import logoIcon from './assets/pomolo-cropped.png'
 
 function App() {
   const [count, setCount] = useState(0)
-
-  const [numPomos, setNumPomos] = useState(0);
-  const [numShort, setNumShort] = useState(0);
-  const [numLong, setNumLong] = useState(0);
-
+  const [sessions, setSessions] = useState([]);
   const [showStats, setShowStats] = useState(false);
+
+  const addSession = (type, duration) => {
+    const newSession = {
+      type: type,
+      duration: duration,
+      completedAt: new Date()
+    };
+    setSessions(prev => [...prev, newSession]); // append to list
+  };
+
+  // counter functions
+  const numPomos = sessions.filter(session => session.type === "pomo").length;
+  const numShort = sessions.filter(session => session.type === "short").length;
+  const numLong = sessions.filter(session => session.type === "long").length;
 
   return (
     <div className='app'>
@@ -31,10 +41,8 @@ function App() {
         </div>
 
         <Timer 
-          numPomos={numPomos}
-          onPomoComplete={() => setNumPomos(prev => prev + 1)}
-          onShortComplete={() => setNumShort(prev => prev + 1)}
-          onLongComplete={() => setNumLong(prev => prev + 1)}
+          numPommos={numPomos}
+          onSessionComplete={addSession}
         />
 
         {showStats && (<Stats 

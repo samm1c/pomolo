@@ -2,14 +2,11 @@ import { useState, useEffect } from 'react'
 import skipIcon from '../assets/skip.webp'
 
 // function Timer({ initialSeconds = 1, shortSeconds = 2, longSeconds = 3 }) { // default is 25 mins = 1500 sec
-function Timer({ numPomos, onPomoComplete, onShortComplete, onLongComplete, initialSeconds = 1500, shortSeconds = 300, longSeconds = 900 }) { // default is 25 mins = 1500 sec
+function Timer({ numPomos, onSessionComplete, initialSeconds = 1, shortSeconds = 2, longSeconds = 3 }) { // default is 25 mins = 1500 sec
     // initialize state
     const [seconds, setSeconds] = useState(initialSeconds);
     const [isActive, setIsActive] = useState(false);
     const [mode, setMode] = useState("pomo");
-    // const [numPomos, setNumPomos] = useState(0);
-    // const [numShort, setNumShort] = useState(0);
-    // const [numLong, setNumLong] = useState(0);
 
     useEffect(() => {
         if (!isActive) return;
@@ -39,15 +36,13 @@ function Timer({ numPomos, onPomoComplete, onShortComplete, onLongComplete, init
         if (seconds === 0) {
             // increment counters
             if (mode === "pomo") {
-                onPomoComplete();
+                onSessionComplete("pomo", initialSeconds);
             } else if (mode === "short") {
-                onShortComplete();
+                onSessionComplete("short", shortSeconds);
             } else {
-                onLongComplete();
+                onSessionComplete("long", longSeconds);
             }
             // switch modes
-            // console.log((numPomos + 1) % 3 === 0);
-            // console.log(numPomos + 1);
             if (shortSeconds === 0 || longSeconds === 0 || mode === "short" || mode === "long") {
                 setMode("pomo");
                 setSeconds(initialSeconds);
