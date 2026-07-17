@@ -103,3 +103,36 @@ button {
     border: none;
     background-color: transparent;
 }
+
+/* stats */
+.stats-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stats-window {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 500px;
+    height: 800px;
+}
+
+.stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.x-button {
+    border: none;
+    background: transparent;
+}
+
+h2 {
+    margin: 0;
+}

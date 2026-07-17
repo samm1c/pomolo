@@ -1,10 +1,17 @@
 import { useState } from 'react'
 import './App.css'
 import Timer from './components/Timer'
+import Stats from './components/Stats'
 import logoIcon from './assets/pomolo-cropped.png'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  const [numPomos, setNumPomos] = useState(0);
+  const [numShort, setNumShort] = useState(0);
+  const [numLong, setNumLong] = useState(0);
+
+  const [showStats, setShowStats] = useState(false);
 
   return (
     <div className='app'>
@@ -17,13 +24,27 @@ function App() {
           </div>
 
           <div className='nav-bar'>
-            <button>Stats</button>
+            <button onClick={() => setShowStats(true)}>Stats</button>
             <button>Settings</button>
             <button>Profile</button>
-          </div>        
+          </div>
         </div>
 
-        <Timer></Timer>
+        <Timer 
+          numPomos={numPomos}
+          onPomoComplete={() => setNumPomos(prev => prev + 1)}
+          onShortComplete={() => setNumShort(prev => prev + 1)}
+          onLongComplete={() => setNumLong(prev => prev + 1)}
+        />
+
+        {showStats && (<Stats 
+          onClose={() => setShowStats(false)}
+          numPomos={numPomos}
+          numShort={numShort}
+          numLong={numLong}
+        />)}
+
+
       </main>
 
       

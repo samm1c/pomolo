@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react'
 import skipIcon from '../assets/skip.webp'
 
 // function Timer({ initialSeconds = 1, shortSeconds = 2, longSeconds = 3 }) { // default is 25 mins = 1500 sec
-function Timer({ initialSeconds = 1500, shortSeconds = 300, longSeconds = 900 }) { // default is 25 mins = 1500 sec
+function Timer({ numPomos, onPomoComplete, onShortComplete, onLongComplete, initialSeconds = 1500, shortSeconds = 300, longSeconds = 900 }) { // default is 25 mins = 1500 sec
     // initialize state
     const [seconds, setSeconds] = useState(initialSeconds);
     const [isActive, setIsActive] = useState(false);
-    const [mode, setMode] = useState("work");
-    const [numPomos, setNumPomos] = useState(0);
-    const [numShort, setNumShort] = useState(0);
-    const [numLong, setNumLong] = useState(0);
+    const [mode, setMode] = useState("pomo");
+    // const [numPomos, setNumPomos] = useState(0);
+    // const [numShort, setNumShort] = useState(0);
+    // const [numLong, setNumLong] = useState(0);
 
     useEffect(() => {
         if (!isActive) return;
@@ -38,18 +38,18 @@ function Timer({ initialSeconds = 1500, shortSeconds = 300, longSeconds = 900 })
         // checking if timer has run out yet
         if (seconds === 0) {
             // increment counters
-            if (mode === "work") {
-                setNumPomos(prev => prev + 1);
+            if (mode === "pomo") {
+                onPomoComplete();
             } else if (mode === "short") {
-                setNumShort(prev => prev + 1);
+                onShortComplete();
             } else {
-                setNumLong(prev => prev + 1);
+                onLongComplete();
             }
             // switch modes
             // console.log((numPomos + 1) % 3 === 0);
             // console.log(numPomos + 1);
             if (shortSeconds === 0 || longSeconds === 0 || mode === "short" || mode === "long") {
-                setMode("work");
+                setMode("pomo");
                 setSeconds(initialSeconds);
             } else if ((numPomos + 1) % 3 === 0) {
                 setMode("long");
@@ -71,9 +71,9 @@ function Timer({ initialSeconds = 1500, shortSeconds = 300, longSeconds = 900 })
         }
     };
 
-    // work button
-    const handleWork = () => {
-        setMode("work");
+    // pomo button
+    const handlepomo = () => {
+        setMode("pomo");
         setIsActive(false);
         setSeconds(initialSeconds);
     };
@@ -96,7 +96,7 @@ function Timer({ initialSeconds = 1500, shortSeconds = 300, longSeconds = 900 })
     const handleSkip = () => {
         setIsActive(false);
         if (mode === "short" || mode === "long" || shortSeconds === 0 || longSeconds === 0) {
-            setMode("work");
+            setMode("pomo");
             setSeconds(initialSeconds);
         } else if ((numPomos + 1) % 3 === 0) {
             setMode("long");
@@ -122,7 +122,7 @@ function Timer({ initialSeconds = 1500, shortSeconds = 300, longSeconds = 900 })
         <div className='timer'>
             <div className='mode-buttons-container'>
                 {/* reset button */}
-                <button className={mode === "work" ? "mode-button active" : "mode-button"} onClick={handleWork}>Pomodoro</button>
+                <button className={mode === "pomo" ? "mode-button active" : "mode-button"} onClick={handlepomo}>Pomodoro</button>
                 <button className={mode === "short" ? "mode-button active" : "mode-button"} onClick={handleShort}>Short Break</button>
                 <button className={mode === "long" ? "mode-button active" : "mode-button"} onClick={handleLong}>Long Break</button>
             </div>
@@ -144,4 +144,4 @@ function Timer({ initialSeconds = 1500, shortSeconds = 300, longSeconds = 900 })
     );
 }
 
-export default Timer
+export default Timer;
