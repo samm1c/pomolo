@@ -1,3 +1,4 @@
+import closeIcon from '../assets/x-icon-lg.png'
 
 function Stats({ onClose, sessions }) {
     // counter functions
@@ -9,16 +10,18 @@ function Stats({ onClose, sessions }) {
         .reduce((total, session) => total + session.duration, 0);
 
     return (
-        <div className="stats-overlay">
-            <div className="stats-window">
+        <div className="stats-overlay" onClick={onClose}>
+            <div className="stats-window" onClick={e => e.stopPropagation()}>
                 <div className="stats-header">
                     <h2>Statistics</h2>
-                    <button className="x-button" onClick={onClose}>X</button>
+                    <button className="x-button" onClick={onClose}>
+                        <img src={closeIcon} width="30"></img>
+                    </button>
                 </div>
                 
                 <div className="stat-container">
                     <div className="stat-box">
-                        <div className="stat-num">{totalHours}</div>
+                        <div className="stat-num">{totalHours.toFixed(2)}</div>
                         <div>hours focused</div>
                     </div>
                     <div className="stat-box">
@@ -32,6 +35,7 @@ function Stats({ onClose, sessions }) {
                 </div>
                 <p>Short Breaks: {numShort}</p>
                 <p>Long Breaks: {numLong}</p>
+                <p>GRAPH TO BE IMPLEMENTED</p>
             </div>
         </div>
     );

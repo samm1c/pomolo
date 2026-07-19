@@ -2,7 +2,10 @@ import { useState } from 'react'
 import './App.css'
 import Timer from './components/Timer'
 import Stats from './components/Stats'
-import logoIcon from './assets/pomolo-cropped.png'
+import logoIcon from './assets/pomolo-logo.svg'
+import statsIcon from './assets/bar-chart.png'
+import settingIcon from './assets/cog.png'
+import profileIcon from './assets/profile.webp'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -24,14 +27,23 @@ function App() {
         <div className='top-container'>
           <div>
             <button className='logo'>
-              <img src={logoIcon} alt="Pomolo" width="60%" onClick={() => window.location.reload()}></img>
+              <img src={logoIcon} alt="Pomolo" width="300px" onClick={() => window.location.reload()}></img>
             </button>
           </div>
 
           <div className='nav-bar'>
-            <button onClick={() => setShowStats(true)}>Stats</button>
-            <button>Settings</button>
-            <button>Profile</button>
+            <button onClick={() => setShowStats(true)}>
+              <img className='img-button' src={statsIcon}></img>
+              Stats
+            </button>
+            <button>
+              <img className='img-button' src={settingIcon}></img>
+              Settings
+            </button>
+            <button>
+              <img className='img-button' src={profileIcon}></img>
+              Profile
+            </button>
           </div>
         </div>
 

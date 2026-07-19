@@ -1,6 +1,7 @@
 body {
     font-family: "Pangolin";
     margin: 0;
+    color: white;
 }
 
 .app {
@@ -11,7 +12,7 @@ body {
 
 main {
     flex: 1;
-    background-color: lightgoldenrodyellow;
+    background-color: #3D4012;
     min-height: 100vh;
 }
 
@@ -24,13 +25,16 @@ footer {
 
 /* main elements in App.jsx */
 .nav-bar {
-    /* width: 300px;
-    margin-left: auto;
-    margin-right: 0; */
     display: flex;
     gap: 10px;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.img-button {
+    width: 25px;
+    vertical-align: middle;
+    padding-right: 8px;
 }
 
 .top-container {
@@ -51,7 +55,7 @@ footer {
 .timer {
     width: 650px;
     height: 400px;
-    background-color: lightgray;
+    background-color: #CBD05A;
     border-radius: 20px;
     margin: 0 auto; /* center horizontally */
     margin-top: 20px;
@@ -73,6 +77,8 @@ footer {
 .start-button {
     padding: 10px 80px;
     margin-left: 50px;
+    background-color: white;
+    color: #2E412C;
 }
 
 button {
@@ -81,6 +87,11 @@ button {
     text-align: center;
     font-family: "Pangolin";
     cursor: pointer;
+    padding: 10px 20px;
+    border: none;
+    background-color: #A9AF31;
+    color: white;
+    font-weight: bold;
 }
 
 .mode-buttons-container {
@@ -132,6 +143,7 @@ button {
 .x-button {
     border: none;
     background: transparent;
+    padding: 0;
 }
 
 h2 {
