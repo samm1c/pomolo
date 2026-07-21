@@ -118,7 +118,7 @@ button {
 }
 
 /* stats */
-.stats-overlay {
+.overlay {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.5);
@@ -133,9 +133,11 @@ button {
     border-radius: 10px;
     width: 600px;
     height: 800px;
+    color: black;
+    font-size: 18px;
 }
 
-.stats-header {
+.overlay-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -164,8 +166,22 @@ h2 {
     font-size: 40px;
 }
 
+.stat-text {
+    font-size: 14px;
+}
+
 .stat-container {
     display: flex;
     justify-content: row;
     gap: 50px;
+}
+
+.settings-window {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 600px;
+    height: 800px;
+    color: black;
+    font-size: 18px;
 }

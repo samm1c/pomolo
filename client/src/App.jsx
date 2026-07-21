@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Timer from './components/Timer'
 import Stats from './components/Stats'
+import Settings from './components/Settings'
 import logoIcon from './assets/pomolo-logo.svg'
 import statsIcon from './assets/bar-chart-white.svg'
 import settingIcon from './assets/cog-white.svg'
@@ -10,7 +11,7 @@ import profileIcon from './assets/profile-white.svg'
 function App() {
   const [count, setCount] = useState(0)
   const [sessions, setSessions] = useState([]);
-  const [showStats, setShowStats] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
 
   const addSession = (type, duration) => {
     const newSession = {
@@ -32,11 +33,11 @@ function App() {
           </div>
 
           <div className='nav-bar'>
-            <button onClick={() => setShowStats(true)}>
+            <button onClick={() => setActiveModal("stats")}>
               <img className='img-button' src={statsIcon}></img>
               Stats
             </button>
-            <button>
+            <button onClick={() => setActiveModal("settings")}>
               <img className='img-button' src={settingIcon}></img>
               Settings
             </button>
@@ -52,9 +53,13 @@ function App() {
           onSessionComplete={addSession}
         />
 
-        {showStats && (<Stats 
-          onClose={() => setShowStats(false)}
+        {activeModal === "stats" && (<Stats 
+          onClose={() => setActiveModal(null)}
           sessions={sessions}
+        />)}
+
+        {activeModal === "settings" && (<Settings 
+          onClose={() => setActiveModal(null)}
         />)}
 
 
