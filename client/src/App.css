@@ -12,14 +12,14 @@ body {
 
 main {
     flex: 1;
-    background-color: #3D4012;
+    background-color: #b1b695;
     min-height: 100vh;
 }
 
 footer {
     padding: 20px;
     text-align: center;
-    background-color: lightgray;
+    background-color: #9CA27A;
     /* margin-top: 100vh; */
 }
 
@@ -42,20 +42,22 @@ footer {
     justify-content: space-between;
     margin-left: 10%;
     margin-right: 10%;
+    /* margin-top: 20px; */
+    /* margin-bottom: 20px; */
 }
 
 .logo {
     border: none;
     background-color: transparent;
     padding: 0;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 
 /* subcomponents of Timer.jsx */
 .timer {
     width: 650px;
     height: 400px;
-    background-color: #CBD05A;
+    background-color: #9CA27A;
     border-radius: 20px;
     margin: 0 auto; /* center horizontally */
     margin-top: 20px;
@@ -89,9 +91,9 @@ button {
     cursor: pointer;
     padding: 10px 20px;
     border: none;
-    background-color: #A9AF31;
+    background-color: #9CA27A;
     color: white;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .mode-buttons-container {
@@ -107,7 +109,7 @@ button {
 }
 
 .mode-button.active {
-    background-color: darkgray;
+    background-color: #858C61;
 }
 
 .skip-button {

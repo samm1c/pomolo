@@ -3,9 +3,9 @@ import './App.css'
 import Timer from './components/Timer'
 import Stats from './components/Stats'
 import logoIcon from './assets/pomolo-logo.svg'
-import statsIcon from './assets/bar-chart.png'
-import settingIcon from './assets/cog.png'
-import profileIcon from './assets/profile.webp'
+import statsIcon from './assets/bar-chart-white.svg'
+import settingIcon from './assets/cog-white.svg'
+import profileIcon from './assets/profile-white.svg'
 
 function App() {
   const [count, setCount] = useState(0)

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import skipIcon from '../assets/skip.webp'
+import skipIcon from '../assets/skip-white.svg'
 
 // function Timer({ initialSeconds = 1, shortSeconds = 2, longSeconds = 3 }) { // default is 25 mins = 1500 sec
 function Timer({ sessions, onSessionComplete, initialSeconds = 1, shortSeconds = 2, longSeconds = 3 }) { // 1500, 300, 900
