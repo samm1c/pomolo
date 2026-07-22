@@ -1,14 +1,23 @@
 import { useState, useEffect } from 'react'
 import skipIcon from '../assets/skip-white.svg'
 
-// function Timer({ initialSeconds = 1, shortSeconds = 2, longSeconds = 3 }) { // default is 25 mins = 1500 sec
-function Timer({ sessions, onSessionComplete, initialSeconds = 1, shortSeconds = 2, longSeconds = 3 }) { // 1500, 300, 900
+function Timer({ sessions, onSessionComplete, timer }) {
     // initialize state
-    const [seconds, setSeconds] = useState(initialSeconds);
+    const [seconds, setSeconds] = useState(timer.pomo * 60);
     const [isActive, setIsActive] = useState(false);
     const [mode, setMode] = useState("pomo");
     
     const numPomos = sessions.filter(session => session.type === "pomo").length;
+    
+    useEffect(() => {
+        if (mode === 'pomo') {
+            setSeconds(timer.pomo * 60);
+        } else if (mode === 'short') {
+            setSeconds(timer.short * 60);
+        } else {
+            setSeconds(timer.long * 60);
+        }
+    }, [timer]);
 
     useEffect(() => {
         if (!isActive) return;
@@ -38,22 +47,22 @@ function Timer({ sessions, onSessionComplete, initialSeconds = 1, shortSeconds =
         if (seconds === 0) {
             // increment counters
             if (mode === "pomo") {
-                onSessionComplete("pomo", initialSeconds);
+                onSessionComplete("pomo", timer.pomo * 60);
             } else if (mode === "short") {
-                onSessionComplete("short", shortSeconds);
+                onSessionComplete("short", timer.short * 60);
             } else {
-                onSessionComplete("long", longSeconds);
+                onSessionComplete("long", timer.long * 60);
             }
             // switch modes
-            if (shortSeconds === 0 || longSeconds === 0 || mode === "short" || mode === "long") {
+            if (timer.short * 60 === 0 || timer.long * 60 === 0 || mode === "short" || mode === "long") {
                 setMode("pomo");
-                setSeconds(initialSeconds);
+                setSeconds(timer.pomo * 60);
             } else if ((numPomos + 1) % 3 === 0) {
                 setMode("long");
-                setSeconds(longSeconds);
+                setSeconds(timer.long * 60);
             } else {
                 setMode("short");
-                setSeconds(shortSeconds);
+                setSeconds(timer.short * 60);
             }
         }
     }, [seconds]);
@@ -61,7 +70,7 @@ function Timer({ sessions, onSessionComplete, initialSeconds = 1, shortSeconds =
     // start/pause button
     const handlePause = () => {
         if (!isActive && seconds === 0) {
-            setSeconds(initialSeconds);
+            setSeconds(timer.pomo * 60);
             setIsActive(true);
         } else {
             setIsActive(prev => !prev);
@@ -69,38 +78,38 @@ function Timer({ sessions, onSessionComplete, initialSeconds = 1, shortSeconds =
     };
 
     // pomo button
-    const handlepomo = () => {
+    const handlePomo = () => {
         setMode("pomo");
         setIsActive(false);
-        setSeconds(initialSeconds);
+        setSeconds(timer.pomo * 60);
     };
 
     // short break button
     const handleShort = () => {
         setMode("short");
         setIsActive(false);
-        setSeconds(shortSeconds);
+        setSeconds(timer.short * 60);
     };
 
     // long break button
     const handleLong = () => {
         setMode("long");
         setIsActive(false);
-        setSeconds(longSeconds);
+        setSeconds(timer.long * 60);
     };
 
     // skip button
     const handleSkip = () => {
         setIsActive(false);
-        if (mode === "short" || mode === "long" || shortSeconds === 0 || longSeconds === 0) {
+        if (mode === "short" || mode === "long" || timer.short * 60 === 0 || timer.long * 60 === 0) {
             setMode("pomo");
-            setSeconds(initialSeconds);
+            setSeconds(timer.pomo * 60);
         } else if ((numPomos + 1) % 3 === 0) {
             setMode("long");
-            setSeconds(longSeconds);
+            setSeconds(timer.long * 60);
         } else {
             setMode("short");
-            setSeconds(shortSeconds);
+            setSeconds(timer.short * 60);
         }
     };
 
@@ -119,7 +128,7 @@ function Timer({ sessions, onSessionComplete, initialSeconds = 1, shortSeconds =
         <div className='timer'>
             <div className='mode-buttons-container'>
                 {/* reset button */}
-                <button className={mode === "pomo" ? "mode-button active" : "mode-button"} onClick={handlepomo}>Pomodoro</button>
+                <button className={mode === "pomo" ? "mode-button active" : "mode-button"} onClick={handlePomo}>Pomodoro</button>
                 <button className={mode === "short" ? "mode-button active" : "mode-button"} onClick={handleShort}>Short Break</button>
                 <button className={mode === "long" ? "mode-button active" : "mode-button"} onClick={handleLong}>Long Break</button>
             </div>

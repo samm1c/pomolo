@@ -12,6 +12,11 @@ function App() {
   const [count, setCount] = useState(0)
   const [sessions, setSessions] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
+  const [timer, setTimer] = useState({
+    pomo: 25,
+    short: 5,
+    long: 15
+  });
 
   const addSession = (type, duration) => {
     const newSession = {
@@ -51,6 +56,7 @@ function App() {
         <Timer 
           sessions={sessions}
           onSessionComplete={addSession}
+          timer={timer}
         />
 
         {activeModal === "stats" && (<Stats 
@@ -60,6 +66,8 @@ function App() {
 
         {activeModal === "settings" && (<Settings 
           onClose={() => setActiveModal(null)}
+          timer={timer}
+          setTimer={setTimer}
         />)}
 
 
