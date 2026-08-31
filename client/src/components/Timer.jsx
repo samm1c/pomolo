@@ -1,5 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import skipIcon from '../assets/skip-white.svg'
+
+import timerSound1 from '../assets/time-notif-1.mp3'
+import timerSound2 from '../assets/time-notif-2.mp3'
+import timerSound3 from '../assets/time-notif-3.mp3'
+import timerSound4 from '../assets/time-notif-4.mp3'
+import { playSound } from '../utils/sounds'
 
 function Timer({ sessions, onSessionComplete, timer }) {
     // initialize state
@@ -8,7 +14,7 @@ function Timer({ sessions, onSessionComplete, timer }) {
     const [mode, setMode] = useState("pomo");
     
     const numPomos = sessions.filter(session => session.type === "pomo").length;
-    
+
     useEffect(() => {
         if (mode === 'pomo') {
             setSeconds(timer.pomo * 60);
@@ -27,6 +33,7 @@ function Timer({ sessions, onSessionComplete, timer }) {
             setSeconds(prev => {
                 // case when time left hits 0
                 if (prev <= 1) {
+                    playSound(timer.sound, timer.volume);
                     setIsActive(false);
                     return 0;
                 }
@@ -57,12 +64,15 @@ function Timer({ sessions, onSessionComplete, timer }) {
             if (timer.short * 60 === 0 || timer.long * 60 === 0 || mode === "short" || mode === "long") {
                 setMode("pomo");
                 setSeconds(timer.pomo * 60);
-            } else if ((numPomos + 1) % 3 === 0) {
+                setIsActive(timer.autoStartPomo);
+            } else if ((numPomos + 1) % timer.longInterval === 0) {
                 setMode("long");
                 setSeconds(timer.long * 60);
+                setIsActive(timer.autoStartBreak);
             } else {
                 setMode("short");
                 setSeconds(timer.short * 60);
+                setIsActive(timer.autoStartBreak);
             }
         }
     }, [seconds]);
@@ -104,7 +114,7 @@ function Timer({ sessions, onSessionComplete, timer }) {
         if (mode === "short" || mode === "long" || timer.short * 60 === 0 || timer.long * 60 === 0) {
             setMode("pomo");
             setSeconds(timer.pomo * 60);
-        } else if ((numPomos + 1) % 3 === 0) {
+        } else if ((numPomos + 1) % timer.longInterval == 0) {
             setMode("long");
             setSeconds(timer.long * 60);
         } else {
