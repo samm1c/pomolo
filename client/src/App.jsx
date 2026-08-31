@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './App.css'
 
 import Timer from './components/Timer'
 import Stats from './components/Stats'
 import Settings from './components/Settings'
+import Profile from './components/Profile'
 
 import logoIcon from './assets/pomolo-logo.svg'
 import logoIconDark from './assets/pomolo-logo-dark.svg'
@@ -19,12 +20,12 @@ function App() {
   const [sessions, setSessions] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
   const [timer, setTimer] = useState({
-    pomo: 25,
-    short: 5,
-    long: 15,
-    // pomo: 0.1, // for testing only
-    // short: 0.1,
-    // long: 0.1,
+    // pomo: 25,
+    // short: 5,
+    // long: 15,
+    pomo: 0.1, // for testing only
+    short: 0.1,
+    long: 0.1,
     autoStartPomo: false,
     autoStartBreak: false,
     longInterval: 3,
@@ -81,6 +82,25 @@ function App() {
 
   }
 
+  // listener for profile
+  const profileRef = useRef(null);
+
+  useEffect(() => {
+    if (activeModal !== "profile") return;
+    const handleClickOutside = (event) => {
+        if (profileRef.current && !profileRef.current.contains(event.target)) {
+            setActiveModal(null);
+        }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [activeModal]);
+
+
   return (
     <div className={`app theme-${timer.theme}`}>
       <main>
@@ -100,10 +120,14 @@ function App() {
               <img className='img-button' src={icons[timer.theme].settings}></img>
               Settings
             </button>
-            <button>
-              <img className='img-button' src={icons[timer.theme].profile}></img>
-              Profile
-            </button>
+            <div className='profile-container' ref={profileRef}>
+              <button onClick={() => setActiveModal("profile")}>
+                <img className='img-button' src={icons[timer.theme].profile}></img>
+                Profile
+              </button>
+              {activeModal === "profile" && (<Profile 
+              />)} 
+            </div>
           </div>
         </div>
 
@@ -129,13 +153,13 @@ function App() {
 
       
       <footer>
-        <a href="https://www.flaticon.com/free-icons/pomelo" title="pomelo icons">Pomelo icons created by popo2021 - Flaticon</a>
-        <a href="https://pixabay.com/sound-effects/technology-new-notification-044-494239/" title="ringtone">New Notification 044 created by Universfield - Pixabay</a>
-        <a href="https://pixabay.com/sound-effects/technology-new-notification-048-494235/" title="ringtone">New Notification 048 created by Universfield - Pixabay</a>
-        <a href="https://pixabay.com/sound-effects/technology-new-notification-054-494259/" title="ringtone">New Notification 054 created by Universfield - Pixabay</a>
-        <a href="https://pixabay.com/sound-effects/film-special-effects-simple-notification-152054/" title="ringtone">Simple Notification created by Universfield - Pixabay</a>
-        <a href="https://commons.wikimedia.org/wiki/File:Speaker_Icon.svg" title="sound">Sound Icon created by Wikipedia</a>
-        <a href="https://www.svgrepo.com/svg/509905/dropdown-arrow" title="dropdown">Dropdown Icon created by zest - SVG Repo</a>
+        <p><a href="https://www.flaticon.com/free-icons/pomelo" title="pomelo icons">Pomelo icons created by popo2021 - Flaticon</a></p>
+        <p><a href="https://pixabay.com/sound-effects/technology-new-notification-044-494239/" title="ringtone">New Notification 044 created by Universfield - Pixabay</a></p>
+        <p><a href="https://pixabay.com/sound-effects/technology-new-notification-048-494235/" title="ringtone">New Notification 048 created by Universfield - Pixabay</a></p>
+        <p><a href="https://pixabay.com/sound-effects/technology-new-notification-054-494259/" title="ringtone">New Notification 054 created by Universfield - Pixabay</a></p>
+        <p><a href="https://pixabay.com/sound-effects/film-special-effects-simple-notification-152054/" title="ringtone">Simple Notification created by Universfield - Pixabay</a></p>
+        <p><a href="https://commons.wikimedia.org/wiki/File:Speaker_Icon.svg" title="sound">Sound Icon created by Wikipedia</a></p>
+        <p><a href="https://www.svgrepo.com/svg/509905/dropdown-arrow" title="dropdown">Dropdown Icon created by zest - SVG Repo</a></p>
 
       </footer>
     </div>

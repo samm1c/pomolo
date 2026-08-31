@@ -125,20 +125,19 @@ function Settings({ onClose, timer, setTimer }) {
                 
                 <div className='setting-row'>
                     <div className='overlay-subheading'>Sound Volume</div>
-                    <div className='sound-container'>
-                        <select value={timer.sound} onChange={e => { setTimer({ ...timer, sound: e.target.value }); }}>
-                            <option value="v1">v1</option>
-                            <option value="v2">v2</option>
-                            <option value="v3">v3</option>
-                            <option value="v4">v4</option>
-                        </select>
-                        <button className='sound-button' onClick={() => playSound(timer.sound, timer.volume)}>
-                            <img src={soundIcon} width="20"></img>
-                        </button>                        
-                    </div>
+                    {/* <div className='sound-container'> */}
+                    <select value={timer.sound} onChange={e => { setTimer({ ...timer, sound: e.target.value }); }}>
+                        <option value="v1">v1</option>
+                        <option value="v2">v2</option>
+                        <option value="v3">v3</option>
+                        <option value="v4">v4</option>
+                    </select>                   
+                    {/* </div> */}
                 </div>
                 <div className='slider-container'>
-                    {timer.volume}
+                    <button className='sound-button' onClick={() => playSound(timer.sound, timer.volume)}>
+                        <img src={soundIcon} width="20"></img>
+                    </button>     
                     <input className="sound-slider" type="range" min="0" max="100" value={timer.volume} onChange={e => { setTimer({ ...timer, volume: Number(e.target.value) }) }}></input>
                 </div>
             </div>
