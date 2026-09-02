@@ -19,7 +19,7 @@ function App() {
   const [count, setCount] = useState(0)
   const [sessions, setSessions] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
-  const [timer, setTimer] = useState({
+  const [settings, setSettings] = useState({
     // pomo: 25,
     // short: 5,
     // long: 15,
@@ -102,27 +102,27 @@ function App() {
 
 
   return (
-    <div className={`app theme-${timer.theme}`}>
+    <div className={`app theme-${settings.theme}`}>
       <main>
         <div className='top-container'>
           <div>
             <button className='logo'>
-              <img src={icons[timer.theme].logo} alt="Pomolo" width="300px" onClick={() => window.location.reload()}></img>
+              <img src={icons[settings.theme].logo} alt="Pomolo" width="300px" onClick={() => window.location.reload()}></img>
             </button>
           </div>
 
           <div className='nav-bar'>
             <button onClick={() => setActiveModal("stats")}>
-              <img className='img-button' src={icons[timer.theme].stats}></img>
+              <img className='img-button' src={icons[settings.theme].stats}></img>
               Stats
             </button>
             <button onClick={() => setActiveModal("settings")}>
-              <img className='img-button' src={icons[timer.theme].settings}></img>
+              <img className='img-button' src={icons[settings.theme].settings}></img>
               Settings
             </button>
             <div className='profile-container' ref={profileRef}>
               <button onClick={() => setActiveModal("profile")}>
-                <img className='img-button' src={icons[timer.theme].profile}></img>
+                <img className='img-button' src={icons[settings.theme].profile}></img>
                 Profile
               </button>
               {activeModal === "profile" && (<Profile 
@@ -134,7 +134,7 @@ function App() {
         <Timer 
           sessions={sessions}
           onSessionComplete={addSession}
-          timer={timer}
+          settings={settings}
         />
 
         {activeModal === "stats" && (<Stats 
@@ -144,8 +144,8 @@ function App() {
 
         {activeModal === "settings" && (<Settings 
           onClose={() => setActiveModal(null)}
-          timer={timer}
-          setTimer={setTimer}
+          settings={settings}
+          setSettings={setSettings}
         />)}
 
 
@@ -153,13 +153,15 @@ function App() {
 
       
       <footer>
-        <p><a href="https://www.flaticon.com/free-icons/pomelo" title="pomelo icons">Pomelo icons created by popo2021 - Flaticon</a></p>
-        <p><a href="https://pixabay.com/sound-effects/technology-new-notification-044-494239/" title="ringtone">New Notification 044 created by Universfield - Pixabay</a></p>
-        <p><a href="https://pixabay.com/sound-effects/technology-new-notification-048-494235/" title="ringtone">New Notification 048 created by Universfield - Pixabay</a></p>
-        <p><a href="https://pixabay.com/sound-effects/technology-new-notification-054-494259/" title="ringtone">New Notification 054 created by Universfield - Pixabay</a></p>
-        <p><a href="https://pixabay.com/sound-effects/film-special-effects-simple-notification-152054/" title="ringtone">Simple Notification created by Universfield - Pixabay</a></p>
-        <p><a href="https://commons.wikimedia.org/wiki/File:Speaker_Icon.svg" title="sound">Sound Icon created by Wikipedia</a></p>
-        <p><a href="https://www.svgrepo.com/svg/509905/dropdown-arrow" title="dropdown">Dropdown Icon created by zest - SVG Repo</a></p>
+        Created By <a href="https://samm1c.github.io/" target="_blank" rel="noopener noreferrer">Sammi</a>
+        <h3>Credits:</h3>
+        <p>Pomelo icons created by <a href="https://www.flaticon.com/free-icons/pomelo" title="pomelo icons"  target="_blank" rel="noopener noreferrer">popo2021 - Flaticon</a></p>
+        <p>New Notification 044 created by <a href="https://pixabay.com/sound-effects/technology-new-notification-044-494239/" title="ringtone" target="_blank" rel="noopener noreferrer">Universfield - Pixabay</a></p>
+        <p>New Notification 048 created by <a href="https://pixabay.com/sound-effects/technology-new-notification-048-494235/" title="ringtone" target="_blank" rel="noopener noreferrer">Universfield - Pixabay</a></p>
+        <p>New Notification 054 created by <a href="https://pixabay.com/sound-effects/technology-new-notification-054-494259/" title="ringtone" target="_blank" rel="noopener noreferrer">Universfield - Pixabay</a></p>
+        <p>Simple Notification created by <a href="https://pixabay.com/sound-effects/film-special-effects-simple-notification-152054/" title="ringtone" target="_blank" rel="noopener noreferrer">Universfield - Pixabay</a></p>
+        <p>Sound Icon created by <a href="https://commons.wikimedia.org/wiki/File:Speaker_Icon.svg" title="sound" target="_blank" rel="noopener noreferrer">Wikipedia</a></p>
+        <p>Dropdown Icon created by <a href="https://www.svgrepo.com/svg/509905/dropdown-arrow" title="dropdown" target="_blank" rel="noopener noreferrer">zest - SVG Repo</a></p>
 
       </footer>
     </div>

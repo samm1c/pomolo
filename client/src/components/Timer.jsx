@@ -7,9 +7,9 @@ import timerSound3 from '../assets/time-notif-3.mp3'
 import timerSound4 from '../assets/time-notif-4.mp3'
 import { playSound } from '../utils/sounds'
 
-function Timer({ sessions, onSessionComplete, timer }) {
+function Timer({ sessions, onSessionComplete, settings }) {
     // initialize state
-    const [seconds, setSeconds] = useState(timer.pomo * 60);
+    const [seconds, setSeconds] = useState(settings.pomo * 60);
     const [isActive, setIsActive] = useState(false);
     const [mode, setMode] = useState("pomo");
     
@@ -17,13 +17,13 @@ function Timer({ sessions, onSessionComplete, timer }) {
 
     useEffect(() => {
         if (mode === 'pomo') {
-            setSeconds(timer.pomo * 60);
+            setSeconds((settings.pomo * 60) - seconds); // remaining time; don't reset
         } else if (mode === 'short') {
-            setSeconds(timer.short * 60);
+            setSeconds((settings.short * 60) - seconds);
         } else {
-            setSeconds(timer.long * 60);
+            setSeconds((settings.long * 60) - seconds);
         }
-    }, [timer]);
+    }, [settings]);
 
     useEffect(() => {
         if (!isActive) return;
@@ -33,7 +33,7 @@ function Timer({ sessions, onSessionComplete, timer }) {
             setSeconds(prev => {
                 // case when time left hits 0
                 if (prev <= 1) {
-                    playSound(timer.sound, timer.volume);
+                    playSound(settings.sound, settings.volume);
                     setIsActive(false);
                     return 0;
                 }
@@ -54,25 +54,25 @@ function Timer({ sessions, onSessionComplete, timer }) {
         if (seconds === 0) {
             // increment counters
             if (mode === "pomo") {
-                onSessionComplete("pomo", timer.pomo * 60);
+                onSessionComplete("pomo", settings.pomo * 60);
             } else if (mode === "short") {
-                onSessionComplete("short", timer.short * 60);
+                onSessionComplete("short", settings.short * 60);
             } else {
-                onSessionComplete("long", timer.long * 60);
+                onSessionComplete("long", settings.long * 60);
             }
             // switch modes
-            if (timer.short * 60 === 0 || timer.long * 60 === 0 || mode === "short" || mode === "long") {
+            if (settings.short * 60 === 0 || settings.long * 60 === 0 || mode === "short" || mode === "long") {
                 setMode("pomo");
-                setSeconds(timer.pomo * 60);
-                setIsActive(timer.autoStartPomo);
-            } else if ((numPomos + 1) % timer.longInterval === 0) {
+                setSeconds(settings.pomo * 60);
+                setIsActive(settings.autoStartPomo);
+            } else if ((numPomos + 1) % settings.longInterval === 0) {
                 setMode("long");
-                setSeconds(timer.long * 60);
-                setIsActive(timer.autoStartBreak);
+                setSeconds(settings.long * 60);
+                setIsActive(settings.autoStartBreak);
             } else {
                 setMode("short");
-                setSeconds(timer.short * 60);
-                setIsActive(timer.autoStartBreak);
+                setSeconds(settings.short * 60);
+                setIsActive(settings.autoStartBreak);
             }
         }
     }, [seconds]);
@@ -80,7 +80,7 @@ function Timer({ sessions, onSessionComplete, timer }) {
     // start/pause button
     const handlePause = () => {
         if (!isActive && seconds === 0) {
-            setSeconds(timer.pomo * 60);
+            setSeconds(settings.pomo * 60);
             setIsActive(true);
         } else {
             setIsActive(prev => !prev);
@@ -91,35 +91,35 @@ function Timer({ sessions, onSessionComplete, timer }) {
     const handlePomo = () => {
         setMode("pomo");
         setIsActive(false);
-        setSeconds(timer.pomo * 60);
+        setSeconds(settings.pomo * 60);
     };
 
     // short break button
     const handleShort = () => {
         setMode("short");
         setIsActive(false);
-        setSeconds(timer.short * 60);
+        setSeconds(settings.short * 60);
     };
 
     // long break button
     const handleLong = () => {
         setMode("long");
         setIsActive(false);
-        setSeconds(timer.long * 60);
+        setSeconds(settings.long * 60);
     };
 
     // skip button
     const handleSkip = () => {
         setIsActive(false);
-        if (mode === "short" || mode === "long" || timer.short * 60 === 0 || timer.long * 60 === 0) {
+        if (mode === "short" || mode === "long" || settings.short * 60 === 0 || settings.long * 60 === 0) {
             setMode("pomo");
-            setSeconds(timer.pomo * 60);
-        } else if ((numPomos + 1) % timer.longInterval == 0) {
+            setSeconds(settings.pomo * 60);
+        } else if ((numPomos + 1) % settings.longInterval == 0) {
             setMode("long");
-            setSeconds(timer.long * 60);
+            setSeconds(settings.long * 60);
         } else {
             setMode("short");
-            setSeconds(timer.short * 60);
+            setSeconds(settings.short * 60);
         }
     };
 

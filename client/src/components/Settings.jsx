@@ -3,7 +3,7 @@ import soundIcon from '../assets/sound-icon.webp'
 
 import { playSound } from '../utils/sounds'
 
-function Settings({ onClose, timer, setTimer }) {
+function Settings({ onClose, settings, setSettings }) {
 
     return (
         <div className="overlay" onMouseDown={e => {
@@ -23,13 +23,13 @@ function Settings({ onClose, timer, setTimer }) {
                 <div className='setting-container'>
                     <div className='setting-subcontainer'>
                         <label>Pomodoro</label>
-                        <input type='number' value={timer.pomo} min="1"
+                        <input type='number' value={settings.pomo} min="1"
                             onChange={e => {
                                 const value = Number(e.target.value);
 
                                 if (value >= 1) {
-                                    setTimer({
-                                        ...timer,
+                                    setSettings({
+                                        ...settings,
                                         pomo: value
                                     });
                                 }
@@ -39,12 +39,12 @@ function Settings({ onClose, timer, setTimer }) {
                     
                     <div className='setting-subcontainer'>
                         <label>Short Break</label>
-                        <input type='number' value={timer.short} min="0"
+                        <input type='number' value={settings.short} min="0"
                             onChange={e => {
                                 const value = Number(e.target.value);
 
-                                setTimer({
-                                    ...timer,
+                                setSettings({
+                                    ...settings,
                                     short: value
                                 });
                             }}>
@@ -53,12 +53,12 @@ function Settings({ onClose, timer, setTimer }) {
 
                     <div className='setting-subcontainer'>
                         <label>Long Break</label>
-                        <input type='number' value={timer.long} min="0"
+                        <input type='number' value={settings.long} min="0"
                             onChange={e => {
                                 const value = Number(e.target.value);
 
-                                setTimer({
-                                    ...timer,
+                                setSettings({
+                                    ...settings,
                                     long: value
                                 });
                             }}>
@@ -70,10 +70,10 @@ function Settings({ onClose, timer, setTimer }) {
                 <div className='setting-row'>
                     <div className='overlay-subheading'>Auto Start Breaks</div>
                     <label className='switch'>
-                        <input type='checkbox' checked={timer.autoStartBreak}
+                        <input type='checkbox' checked={settings.autoStartBreak}
                             onChange={e => {
-                                setTimer({
-                                    ...timer,
+                                setSettings({
+                                    ...settings,
                                     autoStartBreak: e.target.checked
                                 });
                             }}/> {/* invisible input */}
@@ -85,10 +85,10 @@ function Settings({ onClose, timer, setTimer }) {
                 <div className='setting-row'>
                     <div className='overlay-subheading'>Auto Start Pomodoros</div>
                     <label className='switch'>
-                        <input type='checkbox' checked={timer.autoStartPomo}
+                        <input type='checkbox' checked={settings.autoStartPomo}
                             onChange={e => {
-                                setTimer({
-                                    ...timer,
+                                setSettings({
+                                    ...settings,
                                     autoStartPomo: e.target.checked
                                 });
                             }}/> {/* invisible input */}
@@ -99,12 +99,12 @@ function Settings({ onClose, timer, setTimer }) {
 
                 <div className='setting-row'>
                     <div className='overlay-subheading'>Long Break Intervals</div>
-                    <input type='number' value={timer.longInterval} min="0"
+                    <input type='number' value={settings.longInterval} min="0"
                         onChange={e => {
                             const value = Number(e.target.value);
 
-                            setTimer({
-                                ...timer,
+                            setSettings({
+                                ...settings,
                                 longInterval: value
                             });
                         }}>
@@ -115,18 +115,18 @@ function Settings({ onClose, timer, setTimer }) {
                 <div className='setting-row'>
                     <div className='overlay-subheading'>Themes</div>
                     <div className='color-subcontainer'>
-                        <button className={`theme-color ${timer.theme === "green" ? "selected" : ""}`} id='green' onClick={() => setTimer({ ...timer, theme: "green"})}></button>
-                        <button className={`theme-color ${timer.theme === "dark" ? "selected" : ""}`} id='dark' onClick={() => setTimer({ ...timer, theme: "dark"})}></button>
-                        <button className={`theme-color ${timer.theme === "light" ? "selected" : ""}`} id='light' onClick={() => setTimer({ ...timer, theme: "light"})}></button>
-                        <button className={`theme-color ${timer.theme === "blue" ? "selected" : ""}`} id='blue' onClick={() => setTimer({ ...timer, theme: "blue"})}></button>
-                        <button className={`theme-color ${timer.theme === "brown" ? "selected" : ""}`} id='brown' onClick={() => setTimer({ ...timer, theme: "brown"})}></button>
+                        <button className={`theme-color ${settings.theme === "green" ? "selected" : ""}`} id='green' onClick={() => setSettings({ ...settings, theme: "green"})}></button>
+                        <button className={`theme-color ${settings.theme === "dark" ? "selected" : ""}`} id='dark' onClick={() => setSettings({ ...settings, theme: "dark"})}></button>
+                        <button className={`theme-color ${settings.theme === "light" ? "selected" : ""}`} id='light' onClick={() => setSettings({ ...settings, theme: "light"})}></button>
+                        <button className={`theme-color ${settings.theme === "blue" ? "selected" : ""}`} id='blue' onClick={() => setSettings({ ...settings, theme: "blue"})}></button>
+                        <button className={`theme-color ${settings.theme === "brown" ? "selected" : ""}`} id='brown' onClick={() => setSettings({ ...settings, theme: "brown"})}></button>
                     </div>
                 </div>
                 
                 <div className='setting-row'>
                     <div className='overlay-subheading'>Sound Volume</div>
                     {/* <div className='sound-container'> */}
-                    <select value={timer.sound} onChange={e => { setTimer({ ...timer, sound: e.target.value }); }}>
+                    <select value={settings.sound} onChange={e => { setSettings({ ...settings, sound: e.target.value }); }}>
                         <option value="v1">v1</option>
                         <option value="v2">v2</option>
                         <option value="v3">v3</option>
@@ -135,10 +135,10 @@ function Settings({ onClose, timer, setTimer }) {
                     {/* </div> */}
                 </div>
                 <div className='slider-container'>
-                    <button className='sound-button' onClick={() => playSound(timer.sound, timer.volume)}>
+                    <button className='sound-button' onClick={() => playSound(settings.sound, settings.volume)}>
                         <img src={soundIcon} width="20"></img>
                     </button>     
-                    <input className="sound-slider" type="range" min="0" max="100" value={timer.volume} onChange={e => { setTimer({ ...timer, volume: Number(e.target.value) }) }}></input>
+                    <input className="sound-slider" type="range" min="0" max="100" value={settings.volume} onChange={e => { setSettings({ ...settings, volume: Number(e.target.value) }) }}></input>
                 </div>
             </div>
         </div>
