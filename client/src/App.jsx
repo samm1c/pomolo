@@ -1,10 +1,14 @@
 import { useEffect, useState, useRef } from 'react'
+import axios from 'axios'
 import './App.css'
 
 import Timer from './components/Timer'
 import Stats from './components/Stats'
 import Settings from './components/Settings'
 import Profile from './components/Profile'
+import Register from './components/Register'
+import Account from './components/Account'
+import Login from './components/Login'
 
 import logoIcon from './assets/pomolo-logo.svg'
 import logoIconDark from './assets/pomolo-logo-dark.svg'
@@ -17,6 +21,8 @@ import profileIconDark from './assets/profile.webp'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [sessions, setSessions] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
   const [settings, setSettings] = useState({
@@ -100,6 +106,31 @@ function App() {
     };
   }, [activeModal]);
 
+  // loading
+  useEffect(() => {
+    const checkLogin = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/auth/me', { withCredentials: true });
+        setUser(res.data.user);
+      } catch (err) {
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    checkLogin();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="loading-screen">
+          <h1>Pomolo</h1>
+          <div className="loading-spinner"></div>
+      </div>
+    );
+  }
+
 
   return (
     <div className={`app theme-${settings.theme}`}>
@@ -121,11 +152,14 @@ function App() {
               Settings
             </button>
             <div className='profile-container' ref={profileRef}>
-              <button onClick={() => setActiveModal("profile")}>
+              <button onClick={() => setActiveModal(prev => prev === 'profile' ? null : 'profile')}>
                 <img className='img-button' src={icons[settings.theme].profile}></img>
                 Profile
               </button>
               {activeModal === "profile" && (<Profile 
+                setActiveModal={setActiveModal}
+                user={user}
+                setUser={setUser}
               />)} 
             </div>
           </div>
@@ -146,6 +180,21 @@ function App() {
           onClose={() => setActiveModal(null)}
           settings={settings}
           setSettings={setSettings}
+        />)}
+
+        {activeModal === "register" && (<Register 
+          onClose={() => setActiveModal(null)}
+          setActiveModal={setActiveModal}
+        />)}
+
+        {activeModal === "login" && (<Login 
+          onClose={() => setActiveModal(null)}
+          setActiveModal={setActiveModal}
+          setUser={setUser}
+        />)}
+
+        {activeModal === "account" && (<Account 
+          onClose={() => setActiveModal(null)}
         />)}
 
 

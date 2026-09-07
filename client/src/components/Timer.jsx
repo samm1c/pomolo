@@ -1,10 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import skipIcon from '../assets/skip-white.svg'
 
-import timerSound1 from '../assets/time-notif-1.mp3'
-import timerSound2 from '../assets/time-notif-2.mp3'
-import timerSound3 from '../assets/time-notif-3.mp3'
-import timerSound4 from '../assets/time-notif-4.mp3'
 import { playSound } from '../utils/sounds'
 
 function Timer({ sessions, onSessionComplete, settings }) {
