@@ -99,6 +99,7 @@ router.post('/register', async (req, res) => {
             username: username,
             email: email,
             password: hashedPassword,
+            profilePhoto: null
         });
 
         await user.save();
@@ -156,8 +157,10 @@ router.post('/login', async (req, res) => {
         return res.status(200).json({
             message: 'User logged in successfully.',
             user: {
+                id: user._id,
                 username: user.username,
-                email: user.email
+                email: user.email,
+                profilePhoto: user.profilePhoto
             }
         });
     } catch (err) {
@@ -208,14 +211,15 @@ router.get('/me', async (req, res) => {
             user: {
                 id: user._id,
                 username: user.username,
-                email: user.email
+                email: user.email,
+                profilePhoto: user.profilePhoto
             }
         });
 
     } catch (err) {
         console.error('Authentication check failed: ', err);
         return res.status(500).json({
-            message: 'Server error'
+            message: 'Server error.'
         });
     }
 });

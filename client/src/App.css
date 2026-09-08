@@ -485,7 +485,7 @@ select option {
     padding: 30px;
     border-radius: 10px;
     width: 700px;
-    height: 400px;
+    height: 250px;
     color: black;
     font-size: 18px;
 }
@@ -552,4 +552,113 @@ select option {
     to {
         transform: rotate(360deg);
     }
+}
+
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.profile-photo:hover {
+    opacity: 0.7;
+}
+
+.account-body {
+    height: 120px;
+    display: flex;
+    gap: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.account-body input {
+    display: block;
+    border: 0;
+    border-bottom: 2px solid lightgray;
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+}
+
+.account-username {
+    padding-left: 10px;
+    font-size: 40px;
+}
+
+.account-username:focus {
+    background: rgb(236, 236, 236);
+    border-radius: 25px;
+}
+
+.account-email {
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+.account-email:focus {
+    background: rgb(236, 236, 236);
+    border-radius: 25px;
+}
+
+.account-save {
+    width: 220px;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.account-bottom-container {
+    display: flex;
+}
+
+.cancel-button {
+    background: transparent;
+    color: darkgray;
+    margin-right: 20px;
+}
+
+.edit-password-button {
+    background: transparent;
+    color: black;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+}
+
+.password-window {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    height: 380px;
+    color: black;
+    font-size: 18px;
+}
+
+.password-window input {
+    width: 300px;
+    height: 35px;
+    padding: 10px;
+    background-color: #E9EAE1;
+    border: none;
+    font-size: 16px;
+    border-radius: 7px;
+    box-sizing: border-box;
+}
+
+.show-button {
+    cursor: pointer;
+    padding: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.password-container {
+    display: flex;
+    gap: 5px;
 }

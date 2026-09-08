@@ -9,6 +9,7 @@ import Profile from './components/Profile'
 import Register from './components/Register'
 import Account from './components/Account'
 import Login from './components/Login'
+import Password from './components/Password'
 
 import logoIcon from './assets/pomolo-logo.svg'
 import logoIconDark from './assets/pomolo-logo-dark.svg'
@@ -18,6 +19,7 @@ import settingIcon from './assets/cog-white.svg'
 import settingIconDark from './assets/cog.png'
 import profileIcon from './assets/profile-white.svg'
 import profileIconDark from './assets/profile.webp'
+import pomoloIcon from './assets/pomolo-cropped.png'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -125,7 +127,7 @@ function App() {
   if (loading) {
     return (
       <div className="loading-screen">
-          <h1>Pomolo</h1>
+          <img src={pomoloIcon} alt="Pomolo" width="250px"></img>
           <div className="loading-spinner"></div>
       </div>
     );
@@ -195,6 +197,13 @@ function App() {
 
         {activeModal === "account" && (<Account 
           onClose={() => setActiveModal(null)}
+          user={user}
+          setUser={setUser}
+          setActiveModal={setActiveModal}
+        />)}
+
+        {activeModal === "password" && (<Password 
+          onClose={() => setActiveModal(null)}
         />)}
 
 
@@ -211,7 +220,7 @@ function App() {
         <p>Simple Notification created by <a href="https://pixabay.com/sound-effects/film-special-effects-simple-notification-152054/" title="ringtone" target="_blank" rel="noopener noreferrer">Universfield - Pixabay</a></p>
         <p>Sound Icon created by <a href="https://commons.wikimedia.org/wiki/File:Speaker_Icon.svg" title="sound" target="_blank" rel="noopener noreferrer">Wikipedia</a></p>
         <p>Dropdown Icon created by <a href="https://www.svgrepo.com/svg/509905/dropdown-arrow" title="dropdown" target="_blank" rel="noopener noreferrer">zest - SVG Repo</a></p>
-
+        <p>Show Password Icon created by <a href="https://www.flaticon.com/free-icon/show-password_6790826" title="hide" target="_blank" rel="noopener noreferrer">jojooid - Flaticon</a></p>
       </footer>
     </div>
   )

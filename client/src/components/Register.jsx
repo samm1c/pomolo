@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import closeIcon from '../assets/x-icon-lg.png'
+import showPasswordIcon from '../assets/show-password.png'
 
 import axios from 'axios';
 
@@ -8,6 +9,7 @@ function Register({ onClose, setActiveModal }) {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const [errors, setErrors] = useState({
         username: '',
@@ -18,7 +20,6 @@ function Register({ onClose, setActiveModal }) {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-
         setErrors('');
 
         try {
@@ -66,7 +67,7 @@ function Register({ onClose, setActiveModal }) {
                     {errors.username && (
                         <div className='error'>{errors.username}</div>
                     )}
-                    <input type="username" value={username} onChange={e => setUsername(e.target.value)}/>
+                    <input type="text" value={username} onChange={e => setUsername(e.target.value)}/>
                     <div className='register-description'>must be 3-20 characters and unique</div>
 
                     <div className='overlay-subheading'>Email <span className='required'>*</span></div>
@@ -79,7 +80,10 @@ function Register({ onClose, setActiveModal }) {
                     {errors.password && (
                         <div className='error'>{errors.password}</div>
                     )}
-                    <input type="password" value={password} onChange={e => setPassword(e.target.value)}/>
+                    <div className='password-container'>
+                        <input type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)}/>
+                        <img src={showPasswordIcon} width="25px" className='show-button' onClick={() => setShowPassword(prev => !prev)}></img>
+                    </div>
                     <div className='register-description'>must be 8-20 characters and include at least one number and special character</div>
 
                     {errors.general && (

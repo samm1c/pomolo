@@ -8,6 +8,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth.js');
+const usersRoutes = require('./routes/users.js');
 
 const app = express();
 const PORT = 5000;
@@ -31,7 +32,9 @@ app.use(cors({
 
 app.use(express.json()); // express automatically parses JSON body
 app.use('/api/auth', authRoutes);
+app.use('/api/users', usersRoutes);
 
+// routes
 app.get('/', (req, res) => {
     res.send('Running Pomolo server...');
 });

@@ -1,12 +1,14 @@
 import { useState } from 'react'
 
 import closeIcon from '../assets/x-icon-lg.png'
+import showPasswordIcon from '../assets/show-password.png'
 
 import axios from 'axios';
 
 function Login({ onClose, setActiveModal, setUser }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const [errors, setErrors] = useState({
         username: '',
@@ -17,7 +19,6 @@ function Login({ onClose, setActiveModal, setUser }) {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
         setErrors('');
 
         try {
@@ -65,13 +66,17 @@ function Login({ onClose, setActiveModal, setUser }) {
                     {errors.username && (
                         <div className='error'>{errors.username}</div>
                     )}
-                    <input type="username" value={username} onChange={e => setUsername(e.target.value)}/>
+                    <input type="text" value={username} onChange={e => setUsername(e.target.value)}/>
 
                     <div className='overlay-subheading'>Password <span className='required'>*</span></div>
                     {errors.password && (
                         <div className='error'>{errors.password}</div>
                     )}
-                    <input type="password" value={password} onChange={e => setPassword(e.target.value)}/>
+                    <div className='password-container'>
+                        <input type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)}/>
+                        <img src={showPasswordIcon} width="25px" className='show-button' onClick={() => setShowPassword(prev => !prev)}></img>
+                    </div>
+
 
                     {errors.general && (
                         <div className='error'>{errors.general}</div>
